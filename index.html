@@ -1,0 +1,199 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Senderos de La Palma</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    .esri-ui-corner .esri-component {
+      box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3) !important;
+    }
+    .esri-ui-corner .esri-component.esri-widget--panel {
+      width: 200px !important;
+      background-color: #52c0cb;
+    }
+    .esri-layer-list__item {
+      background-color: #fff;
+      border-bottom: 0px solid red !important;
+      position: relative;
+      overflow: hidden;
+      list-style: none;
+      margin: 3px 0;
+      padding: 0;
+    }
+    .esri-icon-visible:before {
+      content: "\e68d";
+      color: white !important;
+    }
+    #mainContainer {
+      display: flex;
+      flex-direction: column;
+    }
+    #buscador {
+      width: 200px;
+      z-index: 99;
+      position: relative;
+      top: 2px;
+      right: 33px;
+      height: 35px;
+      visibility: hidden;
+    }
+    #rectangle {
+      position: relative;
+      top: 10px;
+      right: 33px;
+      z-index: 99;
+      height: 110px;
+      width: 200px;
+      background-color: #52c0cb;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+      align-items: center;
+      justify-content: space-around;
+      color: white;
+    }
+    .esri-layer-list__item-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding: 12px 7px 12px 20px;
+      background-color: 52c0cb;
+      color: white;
+    }
+    .box {
+      background-color: white;
+      color: #52c0cb;
+      padding: 1px;
+      border: none;
+    }
+    .myButton {
+      position: relative;
+      top: -9px;
+      background: linear-gradient(to bottom, #3096a0 5%, #3096a0 100%);
+      background-color: #3096a0;
+      border-radius: 4px;
+      border: 1px solid #3096a0;
+      display: inline-block;
+      cursor: pointer;
+      color: #ffffff;
+      font-family: Arial;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 6px 12px;
+      text-decoration: none;
+      text-shadow: 0px 1px 0px #3096a0;
+    }
+    .myButton:hover {
+      background: linear-gradient(to bottom, #3096a0 5%, #3096a0 100%);
+      background-color: #3096a0;
+    }
+    #consult {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      position: relative;
+      top: 10px;
+    }
+    #headBox {
+      position: relative;
+      right: 10px;
+      z-index: 99;
+      height: 50px;
+      width: 209px;
+      background-color: #52c0cb;
+      display: flex;
+      align-content: center;
+      align-items: center;
+      justify-content: space-evenly;
+      color: white;
+      -webkit-box-shadow: 10px 10px 29px -10px rgba(0, 0, 0, 0.81);
+      -moz-box-shadow: 10px 10px 29px -10px rgba(0, 0, 0, 0.81);
+      box-shadow: 10px 10px 29px -10px rgba(0, 0, 0, 0.81);
+      border-style: solid;
+      border-width: 0px;
+      border-color: white;
+    }
+    #scrool {
+      visibility: hidden;
+      position: relative;
+      display: flex;
+      right: 33px;
+      flex-direction: column;
+      height: 450px;
+      overflow: overlay;
+      text-align: justify;
+      width: 200px;
+      z-index: 90;
+    }
+    .zoom {
+      background-image: url(imagenes/search.png);
+      background-repeat: no-repeat;
+      background-size: 15px 15px;
+      width: 15px;
+      height: 15px;
+      background-color: #52c0cb;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      position: relative;
+      right: 10px;
+      z-index: 99;
+      height: 50px;
+      width: 209px;
+      background-color: white;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      align-items: center;
+      justify-content: center;
+      align-items: center;
+      -webkit-box-shadow: 10px 10px 29px -10px rgba(0, 0, 0, 0.81);
+      -moz-box-shadow: 10px 10px 29px -10px rgba(0, 0, 0, 0.81);
+      box-shadow: 10px 10px 29px -10px rgba(0, 0, 0, 0.81);
+    }
+    #bigContainer {
+      position: relative;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.11/esri/themes/light/main.css" />
+  <script>
+    window.dojoConfig = {
+      async: true,
+      packages: [
+        {
+          name: "react",
+          location: "https://unpkg.com/react@16/umd/",
+          main: "react.production.min"
+        },
+        {
+          name: "react-dom",
+          location: "https://unpkg.com/react-dom@16/umd/",
+          main: "react-dom.production.min"
+        }
+      ]
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://js.arcgis.com/4.11/"></script>
+  <script type="text/babel" src="js/js.js" charset="utf-8"></script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
+
