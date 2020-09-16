@@ -4,14 +4,10 @@ require([
   "esri/Map",
   "esri/views/MapView",
   "esri/layers/FeatureLayer",
-  "esri/core/watchUtils",
   "esri/tasks/QueryTask",
   "esri/tasks/support/Query",
   "esri/widgets/LayerList",
   "esri/layers/GraphicsLayer",
-  "esri/symbols/SimpleFillSymbol",
-  "esri/symbols/SimpleLineSymbol",
-  "esri/renderers/SimpleRenderer",
   "esri/widgets/Zoom/ZoomViewModel"
 ], function (
   React,
@@ -19,15 +15,10 @@ require([
   Map,
   MapView,
   FeatureLayer,
-  watchUtils,
   QueryTask,
   Query,
   LayerList,
   GraphicsLayer,
-  SimpleFillSymbol,
-  SimpleLineSymbol,
-  SimpleRenderer,
-  ZoomViewModel
 ) {
   const url =
     "https://services6.arcgis.com/30currU8oaQeVHvW/ArcGIS/rest/services/paths/FeatureServer/0";
